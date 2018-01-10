@@ -18,14 +18,13 @@
     <link rel="stylesheet" href="assets/style/style.css">
 
     <!--Handler Imports-->
+    <script src="assets/handlers/display.handler" type="text/javascript"></script>
     <script src="assets/handlers/firebase.handler" type="text/javascript" onload="firebaseOnload()"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark justify-content-between">
         <a class="navbar-brand white">ClassHeroes Console</a>
-        <form class="form-inline">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="loginGoogle()">Log in</button>
-        </form>
+          <button id="googleButton" class="btn btn-outline-info my-2 my-sm-0" onclick="loginGoogle()">Log in</button>
       </nav>
       <div id="body">
         <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">

@@ -1,0 +1,16 @@
+//This programm is made by Luca Casonato (CreativeGuy2013) 2018 (c).
+//This programm is not to be distributed by 3rd partys without consent.
+
+function showConsole() {
+    document.getElementById("body").innerHTML = '\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+            <div class="card-body">\
+                <center>\
+                    <h5 class="card-title">Welcome to ClassHeroes Console!</h5>\
+                    <p class="card-text">Welcome ' + user.displayName + '! You have logged into the Console.</p>\
+                    <a onclick="signOut()" class="btn btn-info">Sign out</a>\
+                </center>\
+            </div>\
+          </div>\
+      </div>'
+}

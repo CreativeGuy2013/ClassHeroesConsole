@@ -1,6 +1,8 @@
 //This programm is made by Luca Casonato (CreativeGuy2013) 2018 (c).
 //This programm is not to be distributed by 3rd partys without consent.
 
+var user;
+
 function firebaseOnload() {
     var config = {
         apiKey: "AIzaSyAf-nWR7YEIvoWhoK1JJgZLzujMZ-PSF4g",
@@ -18,15 +20,17 @@ function firebaseOnload() {
     // Initialize Cloud Firestore through Firebase
     db = firebase.firestore();
 
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            if (user.email) {
-                uid = user.uid
+    firebase.auth().onAuthStateChanged(function(user_) {
+        if (user_) {
+            if (user_.email) {
+                uid = user_.uid
                 db.collection("console").doc("teachers").get().then(function(doc) {
                     if (doc.exists) {
                         data = doc.data();
                         if (data.teachers[uid] == true || uid == "3r70b1hA3cQLOM5yqdOIKzRR6323") {
                             teacher = true;
+                            user = user_
+                            document.getElementById("googleButton").outerHTML = '<button id="googleButton" class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="signOut()">Sign out</button>'
                             showConsole()
                         } else {
                             teacher = false;
@@ -54,6 +58,17 @@ function loginGoogle() {
 function signOut() {
     firebase.auth().signOut().then(function() {
         console.log("Signed out sucessfully.")
+        document.getElementById("googleButton").outerHTML = '<button id="googleButton" class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="loginGoogle()">Log in</button>'
+        document.getElementById("body").innerHTML = '<div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+                <div class="card-body">\
+                    <center>\
+                        <h5 class="card-title">You are not logged in!</h5>\
+                        <p class="card-text">Log in to access the ClassHeores Console! If you are not a teacher already, you can contact our sales department at info@classhero.es.</p>\
+                        <a onclick="loginGoogle()" class="btn btn-info">Log in</a>\
+                    </center>\
+                </div>\
+            </div>\
+        </div>'
     }).catch(function(error) {
         console.log(error)
     });
