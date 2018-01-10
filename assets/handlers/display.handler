@@ -6,6 +6,19 @@ function showConsole() {
     <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
             <div class="card-body">\
                 <center>\
+                <nav class="nav nav-pills nav-justified">\
+                    <a class="nav-item nav-link active">Home</a>\
+                    <a class="nav-item nav-link">Change Files</a>\
+                    <a class="nav-item nav-link">Manage Classes</a>\
+                </nav>\
+                </center>\
+            </div>\
+          </div>\
+      </div>'
+    document.getElementById("body").innerHTML += '\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+            <div class="card-body">\
+                <center>\
                     <h5 class="card-title">Welcome to ClassHeroes Console!</h5>\
                     <p class="card-text">Welcome ' + user.displayName + '! You have logged into the Console.</p>\
                     <a onclick="signOut()" class="btn btn-info">Sign out</a>\
@@ -14,3 +27,4 @@ function showConsole() {
           </div>\
       </div>'
 }
+
