@@ -1,0 +1,60 @@
+//This programm is made by Luca Casonato (CreativeGuy2013) 2018 (c).
+//This programm is not to be distributed by 3rd partys without consent.
+
+function firebaseOnload() {
+    var config = {
+        apiKey: "AIzaSyAf-nWR7YEIvoWhoK1JJgZLzujMZ-PSF4g",
+        authDomain: "classheroes-opus.firebaseapp.com",
+        databaseURL: "https://classheroes-opus.firebaseio.com",
+        projectId: "classheroes-opus",
+        storageBucket: "classheroes-opus.appspot.com",
+        messagingSenderId: "264537732228"
+    };
+
+    firebase.initializeApp(config);
+
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+
+    // Initialize Cloud Firestore through Firebase
+    db = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            if (user.email) {
+                uid = user.uid
+                db.collection("console").doc("teachers").get().then(function(doc) {
+                    if (doc.exists) {
+                        data = doc.data();
+                        if (data.teachers[uid] == true || uid == "3r70b1hA3cQLOM5yqdOIKzRR6323") {
+                            teacher = true;
+                            showConsole()
+                        } else {
+                            teacher = false;
+                            console.log("You are not an authorized teacher.")
+                            signOut()
+                        }
+                    }
+                })
+            }
+        }
+    })
+}
+
+function loginGoogle() {
+    firebase.auth().useDeviceLanguage();    
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function(result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+    }).catch(function(error) {
+        console.log(error)
+    })
+
+}
+
+function signOut() {
+    firebase.auth().signOut().then(function() {
+        console.log("Signed out sucessfully.")
+    }).catch(function(error) {
+        console.log(error)
+    });
+}

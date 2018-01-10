@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ClassHeroes Console</title>
+
+    <!--Firebase Imports-->
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>    
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+
+    <!--Style Imports-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/style/style.css">
+
+    <!--Handler Imports-->
+    <script src="assets/handlers/firebase.handler" type="text/javascript" onload="firebaseOnload()"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand white">ClassHeroes Console</a>
+        <form class="form-inline">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="loginGoogle()">Log in</button>
+        </form>
+      </nav>
+      <div id="body">
+        <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">
+            <div class="card-body">
+                <center>
+                    <h5 class="card-title">You are not logged in!</h5>
+                    <p class="card-text">Log in to access the ClassHeores Console! If you are not a teacher already, you can contact our sales department at info@classhero.es.</p>
+                    <a onclick="loginGoogle()" class="btn btn-info">Log in</a>
+                </center>
+            </div>
+          </div>
+      </div>
+</body>
+</html>
