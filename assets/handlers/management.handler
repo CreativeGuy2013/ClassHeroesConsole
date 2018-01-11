@@ -26,7 +26,7 @@ function newClassAdd() {
 
         data_.teachers[user.uid] = true
 
-        //db.collection(year).doc(subj).set(data_)
+        db.collection(year).doc(subj).set(data_)
 
         db.collection("console").doc("defaultdata").get().then(function(doc) {
             db.collection("console").doc("classdata").collection(year).doc(subj).set(doc.data())
