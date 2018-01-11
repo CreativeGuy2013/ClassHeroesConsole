@@ -1,0 +1,44 @@
+//This programm is made by Luca Casonato (CreativeGuy2013) 2018 (c).
+//This programm is not to be distributed by 3rd partys without consent.
+
+function newClassAdd() {
+    year = document.getElementById("new_class_year").value
+    subj = document.getElementById("new_class_subj").value
+    name = document.getElementById("new_class_name").value
+
+    db.collection("console").doc("consoledata").get().then(function(doc) {
+        data =  doc.data()
+
+        data.classes.push(year + "_" + subj)
+        db.collection("console").doc("consoledata").set(data)
+
+        data_ = {
+            teachers: {
+                Sej1xSxHAoeM3RbCGKpqaBZaquq1: true,
+                tBgk3sR2yLdf4iwaqldeygNjC1K3: true
+            },
+            guilds: "",
+            users: [],
+            quest: '{"quest":[]}',
+            encryption: "43hxuwe2nztAKJEXLais5EKg3qfycHLX96ii1FH6ZmagJ4dZ6zJhQsguHyL732M8",
+            class: name
+        }
+
+        data_.teachers[user.uid] = true
+
+        //db.collection(year).doc(subj).set(data_)
+
+        db.collection("console").doc("defaultdata").get().then(function(doc) {
+            db.collection("console").doc("classdata").collection(year).doc(subj).set(doc.data())
+
+            document.getElementById("new_class_alert").innerHTML = '\
+            <div class="alert alert-success alert-dismissible fade show" role="alert">\
+                <h4 class="alert-heading">Well done!</h4>\
+                <p>You added a new class! You can check it out <a target="_blank" href="http://opus.classhero.es/?year=' + year + '&subj=' + subj + '" class="alert-link">here</a>.</p>\
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                    <span aria-hidden="true">&times;</span>\
+                </button>\
+            </div>'
+        })
+    })
+}

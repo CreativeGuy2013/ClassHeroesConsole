@@ -7,16 +7,16 @@ function showConsole() {
             <div class="card-body">\
                 <center>\
                 <nav class="nav nav-pills nav-justified">\
-                    <a class="nav-item nav-link active">Home</a>\
-                    <a class="nav-item nav-link">Change Files</a>\
-                    <a class="nav-item nav-link">Manage Classes</a>\
+                    <a class="nav-item nav-link active" onclick="showConsole()">Home</a>\
+                    <a class="nav-item nav-link" onclick="changeFiles()">Change Files</a>\
+                    <a class="nav-item nav-link" onclick="manageClasses()">Manage Classes</a>\
                 </nav>\
                 </center>\
             </div>\
           </div>\
       </div>'
     document.getElementById("body").innerHTML += '\
-    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2%;">\
             <div class="card-body">\
                 <center>\
                     <h5 class="card-title">Welcome to ClassHeroes Console!</h5>\
@@ -24,7 +24,80 @@ function showConsole() {
                     <a onclick="signOut()" class="btn btn-info">Sign out</a>\
                 </center>\
             </div>\
-          </div>\
-      </div>'
+        </div>\
+    </div>'
 }
 
+function manageClasses() {
+    body = '\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+            <div class="card-body">\
+                <center>\
+                <nav class="nav nav-pills nav-justified">\
+                    <a class="nav-item nav-link" onclick="showConsole()">Home</a>\
+                    <a class="nav-item nav-link" onclick="changeFiles()">Change Files</a>\
+                    <a class="nav-item nav-link active" onclick="manageClasses()">Manage Classes</a>\
+                </nav>\
+                </center>\
+            </div>\
+        </div>\
+    </div>'
+    db.collection("console").doc("consoledata").get().then(function(doc) {
+        data =  doc.data()
+
+        body += '\
+        <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2%;">\
+                <div class="card-body">\
+                    <center>\
+                        <h5 class="card-title">Manage Classes</h5>\
+                        <p class="card-text">\
+                        <table class="table"><tr><th>Link</th><th>Identifier Year</th><th>Identifier Subject</th></tr>\
+        '
+
+        for (var i = 0; i < data.classes.length; i++) {
+            data_ = data.classes[i].split("_")
+            body += "<tr><td><a target='_blank' href='http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "'>http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "</a></td><td>"  + data_[0] + "</td><td>" + data_[1] + "</td></tr>"
+           
+        }
+
+        body += '</table>\
+                        </p>\
+                    </center>\
+                </div>\
+            </div>\
+        </div>'
+
+        body += '\
+        <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2%; margin-bottom: 5%;">\
+                <div class="card-body">\
+                    <center>\
+                        <div id="new_class_alert"></div>\
+                        <h5 class="card-title">Add New Class</h5>\
+                        <p class="card-text">\
+                        <div class="input-group mb-3">\
+                        <div class="input-group-prepend">\
+                            <span class="input-group-text">http://opus.classhero.es/?year=</span>\
+                        </div>\
+                        <input type="text" id="new_class_year" class="form-control" aria-label="year">\
+                        <div class="input-group-prepend">\
+                            <span class="input-group-text">&subj=</span>\
+                        </div>\
+                        <input type="text" id="new_class_subj" class="form-control" aria-label="Subject">\
+                        </div>\
+                        <div class="input-group mb-3">\
+                        <div class="input-group-prepend">\
+                            <span class="input-group-text">Name of class:</span>\
+                        </div>\
+                        <input type="text" id="new_class_name" class="form-control" aria-label="year">\
+                        <div class="input-group-append">\
+                            <button class="btn btn-outline-info" onclick="newClassAdd()" type="button">Add</button>\
+                        </div>\
+                        </div>\
+                        </p>\
+                    </center>\
+                </div>\
+            </div>\
+        </div>'
+        document.getElementById("body").innerHTML = body    
+    })  
+}
