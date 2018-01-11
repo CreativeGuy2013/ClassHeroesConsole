@@ -42,3 +42,76 @@ function newClassAdd() {
         })
     })
 }
+
+function changeFileSelect() {
+    class_ = document.getElementById("change_files_classes")
+    file_ = document.getElementById("change_files_file")
+    button_ = document.getElementById("change_files_open")
+
+    if (class_.value != "undefined") {
+        file_.removeAttribute("disabled")
+    } else {
+        file_.setAttribute("disabled", "disabled")
+    }
+
+    if (class_.value != "undefined" && file_.value != "undefined") {
+        button_.removeAttribute("disabled")
+    } else {
+        button_.setAttribute("disabled", "disabled")
+    }
+}
+
+function changeFileOpen() {
+    class_ = document.getElementById("change_files_classes")
+    file_ = document.getElementById("change_files_file")
+    button_ = document.getElementById("change_files_open")
+    
+    data_ = class_.value.split("_")
+
+    db.collection("console").doc("classdata").collection(data_[0]).doc(data_[1]).get().then(function(doc) {
+        data = doc.data()
+
+        document.getElementById("monaco_editor").innerHTML = "";
+        
+        document.getElementById("save_slot").innerHTML = '<br>\
+        <center>\
+            <button type="button" class="btn btn-outline-info" onclick="changeFileSave(\'' + data_[0] + '\', \'' + data_[1] + '\', \'' + file_.value + '\')">Save</button>\
+        </center>'
+
+        createEditor("monaco_editor", JSON.stringify(JSON.parse(data[file_.value]), null, 2), "json", false)
+        document.getElementById("monaco_editor").removeAttribute("hidden")
+    })
+}
+
+function changeFileSave(year, subj, file) {
+    db.collection("console").doc("classdata").collection(year).doc(subj).get().then(function(doc) {
+        data = doc.data()
+        
+        data[file] = JSON.stringify(JSON.parse(monaco.editor.getModels()[document.getElementById("var__monaco_editor").innerHTML - 1].getValue()))
+
+        db.collection("console").doc("classdata").collection(year).doc(subj).set(data).then(function() {
+            document.getElementById("save_slot").innerHTML += '\
+            <br>\
+            <div class="alert alert-success alert-dismissible fade show" role="alert">\
+            <h4 class="alert-heading">Well done!</h4>\
+            You have successfully changed the file.\
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+              <span aria-hidden="true">&times;</span>\
+            </button>\
+          </div>'
+        })
+        .catch(function(error) {
+            document.getElementById("save_slot").innerHTML += '\
+            <br>\
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">\
+            <h4 class="alert-heading">Error!</h4> \
+            Ouch! Something went wrong! Please send the error code below to one of our technitians at <a href="mailto:techsupport@classhero.es" class="alert-link">techsupport@classhero.es</a>. If you dont send a report, we cant fix the error.\
+            <hr>\
+            ' + error + '\
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+              <span aria-hidden="true">&times;</span>\
+            </button>\
+          </div>'
+        });
+    })
+}

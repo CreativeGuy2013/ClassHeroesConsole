@@ -1,0 +1,76 @@
+var editorRepo;
+
+function initEditorCreation() {
+    loadScript("../vs/loader.js")
+}
+
+
+function createEditor(container_name, code_value, language_value, locked) {
+    require.config({ paths: { 'vs': '../vs' }});
+	require(['vs/editor/editor.main'], function() {
+        var editor = monaco.editor.create(document.getElementById(container_name), {
+			value: code_value,
+            language: language_value,
+            lineNumbers: true,
+            roundedSelection: false,
+            scrollBeyondLastLine: false,
+            readOnly: locked,
+            theme: "vs-dark"
+        });
+
+        var nestingElement = document.getElementById("nesting_element")
+        var varElement = document.createElement("var")
+        var modelID = editor.getModel().id.replace("$model","");
+        varElement.innerHTML = modelID
+        varElement.id = "var__" + container_name
+        nestingElement.appendChild(varElement)
+
+	});
+}
+
+function createEditorCallback(container_name, code_value, language_value, locked, callback) {
+    require.config({ paths: { 'vs': '../vs' }});
+	require(['vs/editor/editor.main'], function() {
+        var editor = monaco.editor.create(document.getElementById(container_name), {
+			value: code_value,
+            language: language_value,
+            lineNumbers: true,
+            roundedSelection: false,
+            scrollBeyondLastLine: false,
+            readOnly: locked,
+            theme: "vs-dark"
+        });
+
+        var nestingElement = document.getElementById("nesting_element")
+        var varElement = document.createElement("var")
+        var modelID = editor.getModel().id.replace("$model","");
+        varElement.innerHTML = modelID
+        varElement.id = "var__" + container_name
+        nestingElement.appendChild(varElement)
+
+        imgLoader = document.createElement("img");
+        imgLoader.setAttribute("hidden", "hidden");
+        imgLoader.src = "";
+        imgLoader.setAttribute("onerror", callback);
+        document.getElementById(container_name).appendChild(imgLoader)
+	});
+}
+
+function loadScript(url) { //loads a script into cache
+	var head = document.getElementsByTagName('head')[0]; //gets the HTMLHeadElement
+	var script = document.createElement('script'); //creates a new Script element
+	script.type = 'text/javascript'; //specefies type of the script element
+	script.src = url; //specefies source of the script element
+	head.appendChild(script); //deploys script element inside the head element
+    console.info("Loaded script with url: " + url); //give a debug message
+}
+
+function loadScriptRedirect(url, callback) { //loads a script into cache and redirects to a callback function
+	var head = document.getElementsByTagName('head')[0]; //gets the HTMLHeadElement
+	var script = document.createElement('script'); //creates a new Script element
+	script.type = 'text/javascript'; //specefies type of the script element
+	script.src = url; //specefies source of the script element
+	script.onload = callback; //specefies where to rediect once script is loaded
+	head.appendChild(script); //deploys script element inside the head element
+    console.info("Loaded script with url: " + url); //give a debug message
+}

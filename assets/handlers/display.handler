@@ -98,6 +98,73 @@ function manageClasses() {
                 </div>\
             </div>\
         </div>'
+
         document.getElementById("body").innerHTML = body    
     })  
+}
+
+function changeFiles() {
+    body = '\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
+            <div class="card-body">\
+                <center>\
+                <nav class="nav nav-pills nav-justified">\
+                    <a class="nav-item nav-link" onclick="showConsole()">Home</a>\
+                    <a class="nav-item nav-link active" onclick="changeFiles()">Change Files</a>\
+                    <a class="nav-item nav-link" onclick="manageClasses()">Manage Classes</a>\
+                </nav>\
+                </center>\
+            </div>\
+        </div>\
+    </div>'
+
+    body += '\
+    <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2%; margin-bottom: 5%;">\
+            <div class="card-body">\
+                <center>\
+                    <h5 class="card-title">Change Files</h5>\
+                    <br>\
+                    <div class="input-group">\
+                        <select onchange="changeFileSelect()" class="custom-select" id="change_files_classes">\
+                            <option value="undefined"selected>Class...</option>\
+    '
+    db.collection("console").doc("consoledata").get().then(function(doc) {
+        data = doc.data()
+        
+        for (var i = 0; i < data.classes.length; i++) {
+            body += '<option value="' + data.classes[i] + '">' + data.classes[i] + '</option>'
+           
+        }
+
+        body += '\
+                        </select>\
+                        <select onchange="changeFileSelect()" class="custom-select" id="change_files_file" disabled>\
+                            <option value="undefined"selected>File...</option>\
+                            <option value="classes">Classes (types)</option>\
+                            <option value="guild_abilities">Guild Abilities</option>\
+                            <option value="guilds">Guilds Icons</option>\
+                            <option value="guild_colors">Guild Colors</option>\
+                            <option value="items">Items</option>\
+                            <option value="localized_types">Item Types</option>\
+                            <option value="people">Quest People</option>\
+                            <option value="fonts">Quest Fonts</option>\
+    '
+                            
+    body += '</select>\
+                        <div class="input-group-append">\
+                            <button class="btn btn-outline-info" type="button" id="change_files_open" onclick="changeFileOpen()" disabled>Open File</button>\
+                        </div>\
+                    </div>\
+                    <span id="save_slot"></span>\
+                </center>\
+                <div class="monaco-container" id="monaco_editor" hidden></div>\
+            </div>\
+        </div>\
+    </div>'
+
+
+
+    document.getElementById("body").innerHTML = body
+
+    })
 }
