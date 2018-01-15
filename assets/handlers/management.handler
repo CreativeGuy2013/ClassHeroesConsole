@@ -67,20 +67,35 @@ function changeFileOpen() {
     button_ = document.getElementById("change_files_open")
     
     data_ = class_.value.split("_")
+    if (class_ = "default") {
+        db.collection("console").doc("defaultdata").get().then(function(doc) {
+            data = doc.data()
 
-    db.collection("console").doc("classdata").collection(data_[0]).doc(data_[1]).get().then(function(doc) {
-        data = doc.data()
+            document.getElementById("monaco_editor").innerHTML = "";
+            
+            document.getElementById("save_slot").innerHTML = '<br>\
+            <center>\
+                <button type="button" class="btn btn-outline-info" onclick="changeFileSave(\'' + data_[0] + '\', \'' + data_[1] + '\', \'' + file_.value + '\')">Save</button>\
+            </center>'
 
-        document.getElementById("monaco_editor").innerHTML = "";
-        
-        document.getElementById("save_slot").innerHTML = '<br>\
-        <center>\
-            <button type="button" class="btn btn-outline-info" onclick="changeFileSave(\'' + data_[0] + '\', \'' + data_[1] + '\', \'' + file_.value + '\')">Save</button>\
-        </center>'
+            createEditor("monaco_editor", JSON.stringify(JSON.parse(data[file_.value]), null, 2), "json", false)
+            document.getElementById("monaco_editor").removeAttribute("hidden")
+        })
+    } else {
+        db.collection("console").doc("classdata").collection(data_[0]).doc(data_[1]).get().then(function(doc) {
+            data = doc.data()
 
-        createEditor("monaco_editor", JSON.stringify(JSON.parse(data[file_.value]), null, 2), "json", false)
-        document.getElementById("monaco_editor").removeAttribute("hidden")
-    })
+            document.getElementById("monaco_editor").innerHTML = "";
+            
+            document.getElementById("save_slot").innerHTML = '<br>\
+            <center>\
+                <button type="button" class="btn btn-outline-info" onclick="changeFileSave(\'' + data_[0] + '\', \'' + data_[1] + '\', \'' + file_.value + '\')">Save</button>\
+            </center>'
+
+            createEditor("monaco_editor", JSON.stringify(JSON.parse(data[file_.value]), null, 2), "json", false)
+            document.getElementById("monaco_editor").removeAttribute("hidden")
+        })
+    }
 }
 
 function changeFileSave(year, subj, file) {
