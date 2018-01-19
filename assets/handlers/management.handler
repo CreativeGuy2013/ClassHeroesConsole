@@ -10,6 +10,7 @@ function newClassAdd() {
         data =  doc.data()
 
         data.classes.push(year + "_" + subj)
+        data.class_names[year + "_" + subj] = name
         db.collection("console").doc("consoledata").set(data)
 
         data_ = {

@@ -29,7 +29,7 @@ function showConsole() {
 }
 
 function manageClasses() {
-    body = '\
+    var body = '\
     <div class="card" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 5%;">\
             <div class="card-body">\
                 <center>\
@@ -51,13 +51,12 @@ function manageClasses() {
                     <center>\
                         <h5 class="card-title">Manage Classes</h5>\
                         <p class="card-text">\
-                        <table class="table"><tr><th>Link</th><th>Identifier Year</th><th>Identifier Subject</th></tr>\
+                        <table class="table"><tr><th>Link</th><th>Identifier Year</th><th>Identifier Subject</th><th>Name</th></tr>\
         '
 
         for (var i = 0; i < data.classes.length; i++) {
             data_ = data.classes[i].split("_")
-            body += "<tr><td><a target='_blank' href='http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "'>http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "</a></td><td>"  + data_[0] + "</td><td>" + data_[1] + "</td></tr>"
-           
+            body += "<tr><td><a target='_blank' href='http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "'>http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "</a></td><td>"  + data_[0] + "</td><td>" + data_[1] + "</td><td>" + data.class_names[data.classes[i]] + "</td></tr>"
         }
 
         body += '</table>\
@@ -102,6 +101,7 @@ function manageClasses() {
         document.getElementById("body").innerHTML = body    
     })  
 }
+
 
 function changeFiles() {
     body = '\
