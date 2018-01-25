@@ -18,7 +18,7 @@ function newClassAdd() {
                 Sej1xSxHAoeM3RbCGKpqaBZaquq1: true,
                 tBgk3sR2yLdf4iwaqldeygNjC1K3: true
             },
-            guilds: "",
+            guilds: {},
             users: [],
             quest: '{"quest":[]}',
             encryption: "43hxuwe2nztAKJEXLais5EKg3qfycHLX96ii1FH6ZmagJ4dZ6zJhQsguHyL732M8",
