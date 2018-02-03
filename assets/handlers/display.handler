@@ -56,7 +56,7 @@ function manageClasses() {
 
         for (var i = 0; i < data.classes.length; i++) {
             data_ = data.classes[i].split("_")
-            body += "<tr><td><a target='_blank' href='http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "'>http://opus.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "</a></td><td>"  + data_[0] + "</td><td>" + data_[1] + "</td><td>" + data.class_names[data.classes[i]] + "</td></tr>"
+            body += "<tr><td><a target='_blank' href='http://lorentz.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "'>http://lorentz.classhero.es/?year=" + data_[0] + "&subj=" + data_[1] + "</a></td><td>"  + data_[0] + "</td><td>" + data_[1] + "</td><td>" + data.class_names[data.classes[i]] + "</td></tr>"
         }
 
         body += '</table>\
@@ -75,7 +75,7 @@ function manageClasses() {
                         <p class="card-text">\
                         <div class="input-group mb-3">\
                         <div class="input-group-prepend">\
-                            <span class="input-group-text">http://opus.classhero.es/?year=</span>\
+                            <span class="input-group-text">http://lorentz.classhero.es/?year=</span>\
                         </div>\
                         <input type="text" id="new_class_year" class="form-control" aria-label="year">\
                         <div class="input-group-prepend">\

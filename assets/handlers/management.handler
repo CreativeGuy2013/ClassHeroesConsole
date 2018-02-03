@@ -35,7 +35,7 @@ function newClassAdd() {
             document.getElementById("new_class_alert").innerHTML = '\
             <div class="alert alert-success alert-dismissible fade show" role="alert">\
                 <h4 class="alert-heading">Well done!</h4>\
-                <p>You added a new class! You can check it out <a target="_blank" href="http://opus.classhero.es/?year=' + year + '&subj=' + subj + '" class="alert-link">here</a>.</p>\
+                <p>You added a new class! You can check it out <a target="_blank" href="http://lorentz.classhero.es/?year=' + year + '&subj=' + subj + '" class="alert-link">here</a>.</p>\
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
                     <span aria-hidden="true">&times;</span>\
                 </button>\
