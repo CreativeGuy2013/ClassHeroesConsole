@@ -68,7 +68,7 @@ function changeFileOpen() {
     button_ = document.getElementById("change_files_open")
     
     data_ = class_.value.split("_")
-    if (class_ = "default") {
+    if (class_ == "default") {
         db.collection("console").doc("defaultdata").get().then(function(doc) {
             data = doc.data()
 
